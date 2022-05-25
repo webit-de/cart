@@ -8,7 +8,7 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use Extcode\Cart\Domain\Model\Coupon;
 use Extcode\Cart\Domain\Model\Cart\CartCoupon;
 use Extcode\Cart\Domain\Repository\CouponRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -18,12 +18,12 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class CouponController extends ActionController
 {
     /**
-     * @var \Extcode\Cart\Domain\Repository\CouponRepository
+     * @var CouponRepository
      */
     protected $couponRepository;
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\CouponRepository $couponRepository
+     * @param CouponRepository $couponRepository
      */
     public function injectCouponRepository(
         CouponRepository $couponRepository
@@ -41,7 +41,7 @@ class CouponController extends ActionController
 
             $couponCode = $this->request->getArgument('couponCode');
 
-            /** @var \Extcode\Cart\Domain\Model\Coupon $coupon */
+            /** @var Coupon $coupon */
             $coupon = $this->couponRepository->findOneByCode($couponCode);
             if ($coupon && $coupon->getIsAvailable()) {
                 $newCartCoupon = GeneralUtility::makeInstance(

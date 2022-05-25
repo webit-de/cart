@@ -9,6 +9,7 @@ namespace Extcode\Cart\Controller\Order;
  * LICENSE file that was distributed with this source code.
  */
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -24,7 +25,7 @@ class OrderController extends ActionController
     /**
      * Order Item Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
+     * @var ItemRepository
      */
     protected $itemRepository;
 
@@ -43,7 +44,7 @@ class OrderController extends ActionController
     protected $pluginSettings;
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+     * @param ItemRepository $itemRepository
      */
     public function injectItemRepository(
         ItemRepository $itemRepository
@@ -93,9 +94,9 @@ class OrderController extends ActionController
     /**
      * Show Action
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      *
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
+     * @IgnoreValidation("orderItem")
      */
     public function showAction(Item $orderItem)
     {

@@ -28,11 +28,7 @@ class ParserUtility
      */
     public function parseTaxClasses(array $pluginSettings, $countryCode)
     {
-        if ($pluginSettings['taxClasses']['className']) {
-            $className = $pluginSettings['taxClasses']['className'];
-        } else {
-            $className = TaxClassService::class;
-        }
+        $className = $pluginSettings['taxClasses']['className'] ?? TaxClassService::class;
 
         $service = GeneralUtility::makeInstance(
             $className
@@ -49,7 +45,7 @@ class ParserUtility
      *
      * @param string $serviceType
      * @param array $pluginSettings Plugin Settings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      *
      * @return array
      */
@@ -95,7 +91,7 @@ class ParserUtility
 
     /**
      * @param array $pluginSettings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      * @param string $type
      *
      * @return array
@@ -142,7 +138,7 @@ class ParserUtility
 
     /**
      * @param array $zoneSettings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      *
      * @return array
      */

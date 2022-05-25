@@ -21,18 +21,18 @@ class SessionHandler implements SingletonInterface
      *
      * @param string $key
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Cart
+     * @return Cart
      */
     public function restore($key)
     {
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->prefixKey . $key);
-        return null === $sessionData ? null : unserialize($sessionData);
+        return is_null($sessionData) ? null : unserialize($sessionData);
     }
 
     /**
      * Writes an object into the PHP session
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart Cart
+     * @param Cart $cart Cart
      * @param string $key Session Key
      *
      * @return SessionHandler $this

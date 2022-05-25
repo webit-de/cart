@@ -1,10 +1,6 @@
 <?php
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 call_user_func(function () {
     $_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
@@ -21,7 +17,7 @@ call_user_func(function () {
 
     foreach ($pluginNames as $pluginName) {
         $pluginSignature = 'cart_' . strtolower($pluginName);
-        ExtensionUtility::registerPlugin(
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'Cart',
             $pluginName,
             $_LLL_db . 'tx_cart.plugin.' . strtolower(preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)))
@@ -29,9 +25,9 @@ call_user_func(function () {
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
 
         $flexFormPath = 'EXT:cart/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
-        if (file_exists(GeneralUtility::getFileAbsFileName($flexFormPath))) {
+        if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($flexFormPath))) {
             $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-            ExtensionManagementUtility::addPiFlexFormValue(
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
                 $pluginSignature,
                 'FILE:' . $flexFormPath
             );

@@ -9,6 +9,7 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
@@ -133,7 +134,7 @@ class OrderController extends ActionController
     }
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
+     * @IgnoreValidation("orderItem")
      */
     public function showAction(Item $orderItem): ResponseInterface
     {

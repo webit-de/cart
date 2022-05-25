@@ -1,10 +1,6 @@
 <?php
 
-use Extcode\Cart\Domain\Model\Order\BillingAddress;
-use Extcode\Cart\Domain\Model\Order\ShippingAddress;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -188,7 +184,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\\' . BillingAddress::class
+                    'record_type' => '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class
                 ],
                 'minitems' => 1,
                 'maxitems' => 1,
@@ -214,7 +210,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\\' . ShippingAddress::class
+                    'record_type' => '\\' . \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
@@ -538,7 +534,7 @@ return [
         'order_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.order_pdfs',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
                     'appearance' => [
@@ -565,7 +561,7 @@ return [
         'invoice_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_pdfs',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
                     'appearance' => [
@@ -592,7 +588,7 @@ return [
         'delivery_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.delivery_pdfs',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
                     'appearance' => [

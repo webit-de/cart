@@ -2,10 +2,7 @@
 declare(strict_types=1);
 namespace Extcode\Cart\Configuration;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return function (ContainerConfigurator $containerConfigurator, ContainerBuilder $containerBuilder) {
+return function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator, \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) {
     if ($containerBuilder->hasDefinition('dashboard.views.widget')) {
         $containerConfigurator->import('Backend/Provider/PaymentPaidShippingOpenProvider.php');
         $containerConfigurator->import('Backend/Widgets/PaymentPaidShippingOpenWidget.php');

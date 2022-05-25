@@ -1,9 +1,6 @@
 <?php
 
-use Extcode\Cart\Domain\Model\Order\BillingAddress;
-use Extcode\Cart\Domain\Model\Order\ShippingAddress;
-
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -48,10 +45,10 @@ return [
                 'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\\' . BillingAddress::class],
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\\' . ShippingAddress::class],
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class],
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\\' . \Extcode\Cart\Domain\Model\Order\ShippingAddress::class],
                 ],
-                'default' => '\\' . BillingAddress::class
+                'default' => '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class
             ]
         ],
         'title' => [
