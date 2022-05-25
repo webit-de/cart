@@ -53,7 +53,7 @@ class OrderController extends ActionController
         parent::initializeAction();
 
         $arguments = $this->request->getArguments();
-        if ($arguments['search']) {
+        if (isset($arguments['search'])) {
             $this->searchArguments = $arguments['search'];
         }
     }
