@@ -8,14 +8,13 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class CurrencyViewHelper extends AbstractViewHelper
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var ConfigurationManager
      */
     protected $configurationManager;
 
@@ -146,5 +145,10 @@ class CurrencyViewHelper extends AbstractViewHelper
             }
         }
         return $output;
+    }
+
+    public function injectConfigurationManager(ConfigurationManager $configurationManager): void
+    {
+        $this->configurationManager = $configurationManager;
     }
 }
