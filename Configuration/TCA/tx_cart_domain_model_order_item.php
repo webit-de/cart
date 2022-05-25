@@ -81,7 +81,6 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_category.cart_pid',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'pages',
                 'size' => 1,
                 'maxitems' => 1,
