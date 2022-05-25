@@ -26,7 +26,7 @@ class SessionHandler implements SingletonInterface
     public function restore($key)
     {
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->prefixKey . $key);
-        return unserialize($sessionData);
+        return null === $sessionData ? null : unserialize($sessionData);
     }
 
     /**
