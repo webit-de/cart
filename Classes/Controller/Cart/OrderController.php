@@ -68,14 +68,13 @@ class OrderController extends ActionController
                 $fields = $this->settings['validation'][$argumentName]['fields'];
 
                 foreach ($fields as $propertyName => $validatorConf) {
+                    $options = $validatorConf['options'] ?? [];
                     $this->setDynamicValidation(
                         $argumentName,
                         $propertyName,
                         [
                             'validator' => $validatorConf['validator'],
-                            'options' => is_array($validatorConf['options'])
-                                ? $validatorConf['options']
-                                : []
+                            'options' => $options
                         ]
                     );
                 }
