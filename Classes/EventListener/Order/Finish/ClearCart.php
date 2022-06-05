@@ -49,7 +49,8 @@ class ClearCart
         $paymentId = $cart->getPayment()->getId();
         $paymentSettings = $this->parserUtility->getTypePluginSettings($settings, $cart, 'payments');
 
-        if (intval($paymentSettings['options'][$paymentId]['preventClearCart']) != 1) {
+        $preventClearCart = $paymentSettings['options'][$paymentId]['preventClearCart'] ?? null;
+        if ((int)$preventClearCart !== 1) {
             $cart = $this->cartUtility->getNewCart($settings);
         }
 

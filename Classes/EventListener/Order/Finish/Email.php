@@ -38,10 +38,10 @@ class Email
             $serviceSettings = $settings['payments']['options'][$paymentId];
         }
 
-        if (intval($serviceSettings['preventBuyerEmail']) != 1) {
+        if (!isset($serviceSettings['preventBuyerEmail']) || 1 !== (int)$serviceSettings['preventSellerEmail']) {
             $this->sendBuyerMail($orderItem);
         }
-        if (intval($serviceSettings['preventSellerEmail']) != 1) {
+        if (!isset($serviceSettings['preventSellerEmail']) || 1 !== (int)$serviceSettings['preventSellerEmail']) {
             $this->sendSellerMail($orderItem);
         }
     }

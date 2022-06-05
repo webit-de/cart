@@ -114,7 +114,7 @@ class OrderController extends ActionController
     ) {
         if (is_null($billingAddress)) {
             $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid']);
-            $billingAddress = unserialize($sessionData);
+            $billingAddress = is_null($sessionData) ? null : unserialize($sessionData);
         } else {
             $sessionData = serialize($billingAddress);
             $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid'], $sessionData);
@@ -174,12 +174,9 @@ class OrderController extends ActionController
         $paymentId = $this->cart->getPayment()->getId();
         $paymentSettings = $this->parserUtility->getTypePluginSettings($this->pluginSettings, $this->cart, 'payments');
 
-        if ($paymentSettings['options'][$paymentId] &&
-            $paymentSettings['options'][$paymentId]['redirects'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success']['url']
-        ) {
-            $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
+        $url = $paymentSettings['options'][$paymentId]['redirects']['success']['url'] ?? false;
+        if ($url) {
+            $this->redirectToUri($url, 0, 200);
         }
     }
 

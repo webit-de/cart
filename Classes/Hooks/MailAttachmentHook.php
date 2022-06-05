@@ -52,30 +52,27 @@ class MailAttachmentHook implements MailAttachmentHookInterface
      */
     public function getMailAttachments(FluidEmail $mailMessage, Item $item, string $type): FluidEmail
     {
-        if ($this->pluginSettings['mail'] && $this->pluginSettings['mail'][$type]) {
-            if ($this->pluginSettings['mail'][$type]['attachments']) {
-                $attachments = $this->pluginSettings['mail'][$type]['attachments'];
-
-                foreach ($attachments as $attachment) {
-                    $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
-                    if (file_exists($attachmentFile)) {
-                        $mailMessage->attachFromPath($attachmentFile);
-                    }
+        $mailSettings = $this->pluginSettings['mail'][$type] ?? null;
+        if ($mailSettings) {
+            $attachments = $mailSettings['attachments'] ?? [];
+            foreach ($attachments as $attachment) {
+                $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
+                if (file_exists($attachmentFile)) {
+                    $mailMessage->attachFromPath($attachmentFile);
                 }
             }
 
-            if ($this->pluginSettings['mail'][$type]['attachDocuments']) {
-                foreach ($this->pluginSettings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
-                    $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
-                    $pdfs = $item->$getter();
-                    if ($pdfs && ($pdfs instanceof ObjectStorage)) {
-                        $pdfs = end($pdfs->toArray());
-                        if ($pdfs) {
-                            $lastOriginalPdf = $pdfs->getOriginalResource();
-                            $lastOriginalPdfPath = $lastOriginalPdf->getForLocalProcessing(false);
-                            if (is_file($lastOriginalPdfPath)) {
-                                $mailMessage->attachFromPath($lastOriginalPdfPath);
-                            }
+            $attachDocuments = $mailSettings['attachDocuments'] ?? [];
+            foreach ($attachDocuments as $pdfType => $pdfData) {
+                $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
+                $pdfs = $item->$getter();
+                if ($pdfs instanceof ObjectStorage) {
+                    $pdfs = end($pdfs->toArray());
+                    if ($pdfs) {
+                        $lastOriginalPdf = $pdfs->getOriginalResource();
+                        $lastOriginalPdfPath = $lastOriginalPdf->getForLocalProcessing(false);
+                        if (is_file($lastOriginalPdfPath)) {
+                            $mailMessage->attachFromPath($lastOriginalPdfPath);
                         }
                     }
                 }
