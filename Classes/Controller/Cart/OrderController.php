@@ -141,11 +141,9 @@ class OrderController extends ActionController
 
         $this->eventDispatcher->dispatch(new ProcessOrderCheckStockEvent($this->cart));
 
-        $orderItem->setCartPid(intval($GLOBALS['TSFE']->id));
-
-        // add billing and shipping address to order
-
         $storagePid = $this->pluginSettings['settings']['order']['pid'];
+        $orderItem->setCartPid($storagePid);
+        // add billing and shipping address to order
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
 
